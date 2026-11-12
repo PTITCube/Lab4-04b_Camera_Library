@@ -12,50 +12,53 @@
  */
 
 #include <Arduino.h>
+
 #include <PTITCube.h>
+
+PTIT_CDH cdh;
 
 PTIT_Camera camera;
 int imageCount = 0;
 
 void setup() {
-    Serial.begin(115200);
+    cdh.begin(115200);
     delay(2000);
     
-    Serial.println("\n--- CAMERA READY ---");
+    cdh.println("\n--- CAMERA READY ---");
 
     if (!camera.init(255, 255)) {
-        Serial.println("[Loi] Khong the khoi tao the nho!");
+        cdh.println("[Loi] Khong the khoi tao the nho!");
         while (1) {
             delay(1000);
         }
     }
 
-    Serial.println("[OK] Nhap 'p' de chup anh.");
+    cdh.println("[OK] Nhap 'p' de chup anh.");
 }
 
 void loop() {
-    if (Serial.available() > 0) {
-        char command = Serial.read();
+    if (cdh.available() > 0) {
+        char command = cdh.read();
 
         if (command == 'p' || command == 'P') {
             String path = "/photos/image_" + String(imageCount) + ".jpg";
-            Serial.println("[Camera] Dang chup: " + path);
+            cdh.println("[Camera] Dang chup: " + path);
 
             if (camera.captureToFile(path.c_str())) {
-                Serial.println("[OK] Da luu anh: " + path);
+                cdh.println("[OK] Da luu anh: " + path);
                 imageCount++;
             } else {
-                Serial.println("[Loi] Chup anh that bai.");
+                cdh.println("[Loi] Chup anh that bai.");
             }
         }
 
-        // Consume CR/LF from the same Serial Monitor command.
-        while (Serial.available() > 0) {
-            char trailing = Serial.peek();
+        // Consume CR/LF from the same cdh Monitor command.
+        while (cdh.available() > 0) {
+            char trailing = cdh.peek();
             if (trailing != '\r' && trailing != '\n') {
                 break;
             }
-            Serial.read();
+            cdh.read();
         }
     }
 }
