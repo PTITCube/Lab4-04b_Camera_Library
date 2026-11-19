@@ -12,11 +12,11 @@ void setup() {
     cdh.begin(115200);
 
     if (!camera.init(255, 255)) {
-        cdh.println("[Camera] Loi: Khong the khoi tao the nho!");
+        cdh.println("Camera: Loi: Khong the khoi tao the nho!");
         return;
     }
 
-    cdh.println("[Camera] Ready. Nhap 'p' tren Serial de chup anh.");
+    cdh.println("Camera: Ready. Nhap 'p' tren Serial de chup anh.");
 }
 
 void loop() {
@@ -25,13 +25,13 @@ void loop() {
 
         if (command == 'p' || command == 'P') {
             String path = "/photos/image_" + String(imageCount) + ".jpg";
-            cdh.println("[Camera] Dang chup: " + path);
+            cdh.println("Camera: Dang chup: " + path);
 
             if (camera.captureToFile(path.c_str())) {
-                cdh.println("[Camera] Da luu anh: " + path);
+                cdh.println("Camera: Da luu anh: " + path);
                 imageCount++;
             } else {
-                cdh.println("[Camera] Chup anh that bai.");
+                cdh.println("Camera: Chup anh that bai.");
             }
         }
 
