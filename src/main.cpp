@@ -5,18 +5,22 @@
 #include <PTITCube.h>
 
 PTIT_CDH cdh;
+PTIT_EPS eps;
 PTIT_Camera camera;
 int imageCount = 0;
 
 void setup() {
     cdh.begin(115200);
 
+    // Kích hoạt hạ áp cấp nguồn camera và ngoại vi qua thư viện EPS
+    eps.setBuckState(true);
+
     if (!camera.init(255, 255)) {
         cdh.println("Camera: Loi the nho!");
         return;
     }
 
-    cdh.println("Camera: San sang. Go 'capture' de chup anh.");
+    cdh.println("Camera: San sang. Go 'p' hoac 'capture' de chup anh.");
 }
 
 void loop() {
@@ -25,7 +29,7 @@ void loop() {
         cmd.trim();
         if (cmd.length() == 0) return;
 
-        if (cmd.equalsIgnoreCase("capture") || cmd.equalsIgnoreCase("photo")) {
+        if (cmd.equalsIgnoreCase("capture") || cmd.equalsIgnoreCase("photo") || cmd.equalsIgnoreCase("p")) {
             String path = "/photos/image_" + String(imageCount) + ".jpg";
             cdh.println("Camera: Dang chup " + path);
 
