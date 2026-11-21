@@ -15,10 +15,7 @@ void setup() {
     // Kích hoạt hạ áp cấp nguồn camera và ngoại vi qua thư viện EPS
     eps.setBuckState(true);
 
-    if (!camera.init(255, 255)) {
-        cdh.println("Camera: Loi the nho!");
-        return;
-    }
+    camera.init();
 
     cdh.println("Camera: San sang. Go 'p' hoac 'capture' de chup anh.");
 }
