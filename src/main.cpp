@@ -10,7 +10,7 @@ PTIT_Camera camera;
 int imageCount = 0;
 
 void setup() {
-    cdh.begin(115200);
+    cdh.begin();
 
     // Kích hoạt hạ áp cấp nguồn camera và ngoại vi qua thư viện EPS
     eps.setBuckState(true);
