@@ -31,7 +31,6 @@ void loop() {
             cdh.println("Camera: Dang chup " + path);
 
             if (camera.captureToFile(path.c_str())) {
-                cdh.println("Camera: Da luu " + path);
                 imageCount++;
             } else {
                 cdh.println("Camera: Chup that bai.");
